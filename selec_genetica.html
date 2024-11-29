@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reprodução Assistida em Animais</title>
+    <style>
+        :root{
+            --color-white: #fff;
+            --color-dark1: #272727;
+            --color-dark2: #444343;
+            --color-green1: #5a866e;
+            --color-green2: #63977a;
+            --color-yellow1:#ffd500; 
+            --color-yellow2: #ffe44c;
+        }
+        *{ 
+          margin: 0;  
+          padding: 0;
+        }
+        body{
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: var(--color-green1);
+            color: var(--color-white);
+        }
+        .img_logo{
+            width: 45px;
+        }
+        .header,
+        .navigation_header{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+        .header{
+            background-color: var(--color-yellow1);
+            box-shadow: 1px 1px 4px var(--color-dark2);
+            height: 3.5em;
+            justify-content: space-between;
+            padding: 0 10%;
+        }
+        .navigation_header{
+            gap: 3em;
+            z-index: 2;
+        }
+        .navigation_header a{
+            text-decoration: none;
+            color: var(--color-green2);
+            transition: 1s;
+            font-weight: bold ;
+            }
+        .active{
+            background-color: var(--color-yellow2);
+            padding: 10px;
+            border-radius: 10px;
+        }
+        .content{
+            text-align: center;
+            padding-top: 5em;
+            height: 100vh;
+            transition: 1s;
+        }
+        .btn_icon_header{
+            display: none;
+            background-color: transparent;
+            border: none;
+            color: var(--color-white);
+            cursor: pointer;
+        }
+        @media screen and (max-width: 768px){
+            .btn_icon_header{
+                display: block;
+            }
+            .navigation_header{
+                position: absolute;
+                flex-direction: column;
+                top: 0;
+                background-color: var(--color-yellow1);
+                height: 50%;
+                width: 35vw;
+                padding: 1em;
+                animation-duration: 1s;
+                margin-left: -100vw;
+            }
+        }
+        @keyframes showSidebar {
+            from {margin-left: -100vw;}
+            top {margin-left: -10vw;}
+        }
+        .jogo{
+            background-color: #63977a; /* Define o fundo como a cor desejada */
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center; /* Centraliza no eixo horizontal */
+            align-items: center;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="header" id="header">
+        <button onclick="toggleSidebar()" class="btn_icon_header">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+            </svg>
+        </button> 
+        <div class="logo_header">
+            <img src="logo vet.png" class="img_logo" id="img_logo" alt="Logo Vet">
+        </div>
+        <div class="navigation_header" id="navigation_header">
+            <button onclick="toggleSidebar()" class="btn_icon_header">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
+                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z"/>
+                </svg>
+            </button>
+            <a href="index.html" class="active">Home</a>
+            <a href="menu.html">Menu</a>
+        </div>
+    </div>
+    <div onclick="closeSidebar()" class="content" id="content">
+        <div id="dov">
+            <section class="section">
+                <figure>
+                    <img src="Seleção.png" alt="VL" usemap="#VL">
+                    <figcaption> </figcaption>
+                </figure> 
+                   
+                    
+            </section>
+        </div> 
+    
+    </div>
+    
+</body>
+<script>
+    var header = document.getElementById('header');
+    var navigationHeader = document.getElementById('navigation_header');
+    var content = document.getElementById('content');
+    var showSidebar = false;
+
+    function toggleSidebar()
+    {
+        showSidebar = !showSidebar;
+        if(showSidebar)
+        {
+            navigationHeader.style.marginLeft = '-10vw';
+            navigationHeader.style.animationName = 'showSidebar'
+            content.style.filter = 'blur(2px)';
+        }
+        else
+        {
+            navigationHeader.style.marginLeft = '-100vw';
+            navigationHeader.style.animationName = '';
+            content.style.filter = '';
+        }
+    }
+
+    function closeSidebar()
+    {
+        if(showSidebar)
+        {
+            toggleSidebar();
+        }
+    }
+    window.addEventListener('resize', function(event){
+        if(window.innerWidth > 768 && showSidebar)
+        {
+            toggleSidebar();
+        }
+    });
+
+</script>
+</html>
